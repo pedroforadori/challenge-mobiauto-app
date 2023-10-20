@@ -47,9 +47,9 @@ export default function SearchTerm() {
           width: {
             xs: "90%",
             sm: "70%",
-            md: "60%",
+            md: "40%",
             lg: "30%",
-            xl: "30%"
+            xl: "25%"
           },
           backgroundColor: "#fff",
           display: "flex",
