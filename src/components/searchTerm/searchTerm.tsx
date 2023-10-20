@@ -44,7 +44,13 @@ export default function SearchTerm() {
       <h2>Consulte o preço de um veiculo de forma gratuíta</h2>
       <Box
         sx={{
-          width: 450,
+          width: {
+            xs: "90%",
+            sm: "70%",
+            md: "60%",
+            lg: "30%",
+            xl: "30%"
+          },
           backgroundColor: "#fff",
           display: "flex",
           justifyContent: "center",
@@ -53,7 +59,7 @@ export default function SearchTerm() {
           padding: "10px",
         }}
       >
-        <FormControl variant="filled" sx={{ m: 1, minWidth: 350 }}>
+        <FormControl variant="filled" sx={{ m: 1, minWidth: "90%" }}>
           <InputLabel
             id="demo-simple-select-filled-label"
             sx={{
@@ -86,7 +92,7 @@ export default function SearchTerm() {
           </Select>
         </FormControl>
 
-        <FormControl variant="filled" sx={{ m: 1, minWidth: 350 }}>
+        <FormControl variant="filled" sx={{ m: 1, minWidth: "90%" }}>
           <InputLabel
             id="demo-simple-select-filled-label"
             sx={{
@@ -120,7 +126,7 @@ export default function SearchTerm() {
         </FormControl>
 
         {model !== "" ? (
-          <FormControl variant="filled" sx={{ m: 1, minWidth: 350 }}>
+          <FormControl variant="filled" sx={{ m: 1, minWidth: "90%" }}>
             <InputLabel
               id="demo-simple-select-filled-label"
               sx={{
@@ -158,7 +164,7 @@ export default function SearchTerm() {
           variant="contained"
           disabled={buttonActive}
           sx={{
-            width: "12em",
+            minWidth: "40%",
             paddingTop: "8px",
             paddingBottom: "8px",
             paddingLeft: "6px",
