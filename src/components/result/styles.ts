@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 
 export const Container = styled.div`
   width: 100%;
+  
   background: #dcf5f2;
   display: flex;
   justify-content: center;
@@ -10,6 +11,10 @@ export const Container = styled.div`
   margin-top: 10px;
   padding: 20px 0 20px 0;
   gap: 12px;
+
+  @media (max-width: 640px) {
+        height: 45vh;
+    }
 `
 
 export const Price = styled.span`

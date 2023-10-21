@@ -4,7 +4,7 @@ import {
   CircularProgress,
   SelectChangeEvent,
 } from "@mui/material";
-import { Form, SubTitle } from "./styles";
+import { Form, SubTitle, Title } from "./styles";
 import { FormEvent, useContext, useEffect, useState } from "react";
 import SelectInput from "../select/select";
 import { api } from "@/lib";
@@ -79,7 +79,7 @@ export default function SearchTerm() {
 
   return (
     <>
-      <h1>Tabela Fipe</h1>
+      <Title>Tabela Fipe</Title>
       <SubTitle>Consulte o preço de um veiculo de forma gratuíta</SubTitle>
       <Box
         sx={{
