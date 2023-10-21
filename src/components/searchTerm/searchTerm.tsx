@@ -84,7 +84,7 @@ export default function SearchTerm() {
       <Box
         sx={{
           width: {
-            xs: "90%",
+            xs: "85%",
             sm: "70%",
             md: "40%",
             lg: "30%",
@@ -93,7 +93,10 @@ export default function SearchTerm() {
           backgroundColor: "#fff",
         }}
       >
-        <Form onSubmit={handlePrice}>
+        <Form 
+          onSubmit={handlePrice}
+          
+        >
           <SelectInput
             value={brand}
             text="Marca"

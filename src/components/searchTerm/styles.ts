@@ -9,5 +9,5 @@ export const Form = styled.form`
 `
 
 export const SubTitle = styled.h2`
-    padding: 5px;
+    padding: 10px;
 `

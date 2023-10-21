@@ -26,5 +26,5 @@ export const Obs = styled.p`
 `
 
 export const Title = styled.h1`
-    padding: 5px;
+    padding: 15px;
 `

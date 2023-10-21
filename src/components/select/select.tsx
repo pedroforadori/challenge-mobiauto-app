@@ -13,7 +13,7 @@ import {
 
 const SelectInput = ({ value, text, handleSelect, data, progress } : SelectInputType) => {
   return (
-    <FormControl variant="filled" sx={{ m: 1, minWidth: "90%" }}>
+    <FormControl variant="filled" sx={{ m: 1, width: "90%" }}>
       <InputLabel
         id="demo-simple-select-filled-label"
         sx={{
