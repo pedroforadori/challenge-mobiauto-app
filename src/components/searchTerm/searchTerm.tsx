@@ -4,7 +4,6 @@ import { FormEvent, useContext, useEffect, useState } from "react";
 import SelectInput from "../select/select";
 import { api } from "@/lib";
 import { CarType } from "@/type/selectType";
-import Result from "../result/result";
 import { PriceContext } from "@/context/result";
 import ButtonFind from "../button/button";
 
@@ -19,7 +18,7 @@ export default function SearchTerm() {
   const [progressModel, setProgressModel] = useState(false);
   const [progressAge, setProgressAge] = useState(false);
   const [buttonActive, setButtonActive] = useState(true);
-  const { handleResult, value } = useContext(PriceContext);
+  const { handleResult } = useContext(PriceContext);
 
   useEffect(() => {
     setProgressBrand(true);
@@ -119,7 +118,6 @@ export default function SearchTerm() {
           <ButtonFind buttonActive={buttonActive} />
         </Form>
       </Box>
-      {value && <Result />}
     </>
   );
 }
