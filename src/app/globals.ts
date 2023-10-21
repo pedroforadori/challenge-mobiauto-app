@@ -1,6 +1,9 @@
 import { css } from '@emotion/react'
 
 export const global = css`
+    *{
+      margin: 0;
+    }
     fieldset{
      border: none !important;
      outline: none !important;

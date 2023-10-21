@@ -1,28 +1,62 @@
 import {
   Box,
   Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
+  CircularProgress,
   SelectChangeEvent,
 } from "@mui/material";
-
-import { useState } from "react";
+import { Form, SubTitle } from "./styles";
+import { FormEvent, useContext, useEffect, useState } from "react";
+import SelectInput from "../select/select";
+import { api } from "@/lib";
+import { CarType } from "@/type/selectType";
+import Result from "../result/result";
+import { PriceContext } from "@/context/result";
 
 export default function SearchTerm() {
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
   const [age, setAge] = useState("");
+  const [brandData, setBrandData] = useState<CarType[]>([]);
+  const [modelData, setModelData] = useState<CarType[]>([]);
+  const [ageData, setAgeData] = useState<CarType[]>([]);
+  const [progressBrand, setProgressBrand] = useState(false);
+  const [progressModel, setProgressModel] = useState(false)
+  const [progressAge, setProgressAge] = useState(false)
   const [buttonActive, setButtonActive] = useState(true);
+  const { handleResult, value, progress } = useContext(PriceContext);
+
+  useEffect(() => {
+    setProgressBrand(true)
+    api.get("/marcas").then((response) => {
+      setBrandData(response.data);
+      setProgressBrand(false)
+    });
+  }, []);
 
   const handleSelectBrand = (event: SelectChangeEvent) => {
     setBrand(event.target.value);
+    loadModel(+event.target.value);
+  };
+
+  const loadModel = (brand: number) => {
+    setProgressModel(true)
+    api.get(`/marcas/${brand}/modelos`).then((response) => {
+      setModelData(response.data.modelos);
+      setProgressModel(false)
+    });
+  };
+
+  const loadAge = (model: number) => {
+    setProgressAge(true)
+    api.get(`/marcas/${brand}/modelos/${model}/anos`).then((response) => {
+      setAgeData(response.data);
+      setProgressAge(false)
+    });
   };
 
   const handleSelectModel = (event: SelectChangeEvent) => {
     setModel(event.target.value);
-    enableButton(event);
+    loadAge(+event.target.value);
   };
 
   const handleSelectAge = (event: SelectChangeEvent) => {
@@ -34,14 +68,19 @@ export default function SearchTerm() {
     if (event.target.value !== "") {
       setButtonActive(false);
     } else {
-        setButtonActive(true);
+      setButtonActive(true);
     }
+  };
+
+  const handlePrice = (event: FormEvent) => {
+    event.preventDefault();
+    handleResult(brand, model, age);
   };
 
   return (
     <>
       <h1>Tabela Fipe</h1>
-      <h2>Consulte o preço de um veiculo de forma gratuíta</h2>
+      <SubTitle>Consulte o preço de um veiculo de forma gratuíta</SubTitle>
       <Box
         sx={{
           width: {
@@ -49,133 +88,71 @@ export default function SearchTerm() {
             sm: "70%",
             md: "40%",
             lg: "30%",
-            xl: "25%"
+            xl: "25%",
           },
           backgroundColor: "#fff",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          padding: "10px",
         }}
       >
-        <FormControl variant="filled" sx={{ m: 1, minWidth: "90%" }}>
-          <InputLabel
-            id="demo-simple-select-filled-label"
-            sx={{
-              color: "#000",
-              marginLeft: "3px",
-              marginTop: "4px",
-            }}
-          >
-            Marca
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
+        <Form onSubmit={handlePrice}>
+          <SelectInput
             value={brand}
-            label="Age"
-            onChange={handleSelectBrand}
-            variant="outlined"
-            sx={{
-              color: "gray",
-              border: "1px solid darkgrey",
-              paddingTop: "8px",
-            }}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </FormControl>
+            text="Marca"
+            handleSelect={handleSelectBrand}
+            data={brandData}
+            progress={progressBrand}
+          />
 
-        <FormControl variant="filled" sx={{ m: 1, minWidth: "90%" }}>
-          <InputLabel
-            id="demo-simple-select-filled-label"
-            sx={{
-              color: "#000",
-              marginLeft: "3px",
-              marginTop: "4px",
-            }}
-          >
-            Modelo
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
+          <SelectInput
             value={model}
-            label="Age"
-            onChange={handleSelectModel}
-            variant="outlined"
+            text="Modelo"
+            handleSelect={handleSelectModel}
+            data={modelData}
+            progress={progressModel}
+          />
+
+          {model !== "" ? (
+            <SelectInput
+              value={age}
+              text="Ano"
+              handleSelect={handleSelectAge}
+              data={ageData}
+              progress={progressAge}
+            />
+          ) : undefined}
+
+          <Button
+            variant="contained"
+            disabled={buttonActive}
+            type="submit"
             sx={{
-              color: "gray",
-              border: "1px solid darkgrey",
+              minWidth: "40%",
               paddingTop: "8px",
+              paddingBottom: "8px",
+              paddingLeft: "6px",
+              paddingRight: "6px",
+              margin: "8px",
+              backgroundColor: "#5d02bf",
+              '&:hover': {
+                opacity: '0.7',
+                backgroundColor: "#5d02bf"
+              },
             }}
           >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </FormControl>
-
-        {model !== "" ? (
-          <FormControl variant="filled" sx={{ m: 1, minWidth: "90%" }}>
-            <InputLabel
-              id="demo-simple-select-filled-label"
-              sx={{
-                color: "#000",
-                marginLeft: "3px",
-                marginTop: "4px",
-              }}
-            >
-              Ano
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              value={age}
-              label="Age"
-              onChange={handleSelectAge}
-              variant="outlined"
-              sx={{
-                color: "gray",
-                border: "1px solid darkgrey",
-                paddingTop: "8px",
-              }}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-        ) : undefined}
-
-        <Button
-          variant="contained"
-          disabled={buttonActive}
-          sx={{
-            minWidth: "40%",
-            paddingTop: "8px",
-            paddingBottom: "8px",
-            paddingLeft: "6px",
-            paddingRight: "6px",
-            margin: "8px",
-            backgroundColor: "#5d02bf",
-          }}
-        >
-          Consultar preço
-        </Button>
+            Consultar preço
+            {progress && (
+              <CircularProgress
+                size={20}
+                sx={{
+                  color: "#fff",
+                  width: "5px",
+                  marginLeft: "4px",
+                }}
+              />
+            )}
+          </Button>
+        </Form>
       </Box>
+      {value && <Result />}
     </>
   );
 }
