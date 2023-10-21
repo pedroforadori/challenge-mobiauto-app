@@ -1,9 +1,4 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  SelectChangeEvent,
-} from "@mui/material";
+import { Box, SelectChangeEvent } from "@mui/material";
 import { Form, SubTitle, Title } from "./styles";
 import { FormEvent, useContext, useEffect, useState } from "react";
 import SelectInput from "../select/select";
@@ -11,6 +6,7 @@ import { api } from "@/lib";
 import { CarType } from "@/type/selectType";
 import Result from "../result/result";
 import { PriceContext } from "@/context/result";
+import ButtonFind from "../button/button";
 
 export default function SearchTerm() {
   const [brand, setBrand] = useState("");
@@ -20,16 +16,16 @@ export default function SearchTerm() {
   const [modelData, setModelData] = useState<CarType[]>([]);
   const [ageData, setAgeData] = useState<CarType[]>([]);
   const [progressBrand, setProgressBrand] = useState(false);
-  const [progressModel, setProgressModel] = useState(false)
-  const [progressAge, setProgressAge] = useState(false)
+  const [progressModel, setProgressModel] = useState(false);
+  const [progressAge, setProgressAge] = useState(false);
   const [buttonActive, setButtonActive] = useState(true);
-  const { handleResult, value, progress } = useContext(PriceContext);
+  const { handleResult, value } = useContext(PriceContext);
 
   useEffect(() => {
-    setProgressBrand(true)
+    setProgressBrand(true);
     api.get("/marcas").then((response) => {
       setBrandData(response.data);
-      setProgressBrand(false)
+      setProgressBrand(false);
     });
   }, []);
 
@@ -39,18 +35,18 @@ export default function SearchTerm() {
   };
 
   const loadModel = (brand: number) => {
-    setProgressModel(true)
+    setProgressModel(true);
     api.get(`/marcas/${brand}/modelos`).then((response) => {
       setModelData(response.data.modelos);
-      setProgressModel(false)
+      setProgressModel(false);
     });
   };
 
   const loadAge = (model: number) => {
-    setProgressAge(true)
+    setProgressAge(true);
     api.get(`/marcas/${brand}/modelos/${model}/anos`).then((response) => {
       setAgeData(response.data);
-      setProgressAge(false)
+      setProgressAge(false);
     });
   };
 
@@ -93,10 +89,7 @@ export default function SearchTerm() {
           backgroundColor: "#fff",
         }}
       >
-        <Form 
-          onSubmit={handlePrice}
-          
-        >
+        <Form onSubmit={handlePrice}>
           <SelectInput
             value={brand}
             text="Marca"
@@ -123,36 +116,7 @@ export default function SearchTerm() {
             />
           ) : undefined}
 
-          <Button
-            variant="contained"
-            disabled={buttonActive}
-            type="submit"
-            sx={{
-              minWidth: "40%",
-              paddingTop: "8px",
-              paddingBottom: "8px",
-              paddingLeft: "6px",
-              paddingRight: "6px",
-              margin: "8px",
-              backgroundColor: "#5d02bf",
-              '&:hover': {
-                opacity: '0.7',
-                backgroundColor: "#5d02bf"
-              },
-            }}
-          >
-            Consultar preço
-            {progress && (
-              <CircularProgress
-                size={20}
-                sx={{
-                  color: "#fff",
-                  width: "5px",
-                  marginLeft: "4px",
-                }}
-              />
-            )}
-          </Button>
+          <ButtonFind buttonActive={buttonActive} />
         </Form>
       </Box>
       {value && <Result />}
