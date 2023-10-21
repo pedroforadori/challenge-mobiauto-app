@@ -17,6 +17,8 @@ export default function RootLayout({
     <html lang="pt-br">
       <head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <title>Desafio Mobiauto</title>
       </head>
       <body className={roboto.className}>
         {children}
