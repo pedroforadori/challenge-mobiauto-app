@@ -1,4 +1,4 @@
-import { DataResultType, PriceContextType } from '@/type/result';
+import { DataResultType } from '@/type/result';
 import { CarType } from '@/type/selectType';
 import axios from 'axios';
 
