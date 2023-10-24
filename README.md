@@ -14,9 +14,9 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+O resultado vai estar em [http://localhost:3000](http://localhost:3000).
 
-## Run Tests
+## Executando Testes
 
 ```bash
 npm test
