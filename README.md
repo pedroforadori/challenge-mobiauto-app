@@ -2,7 +2,19 @@ Projeto criado com [`create-next-app`](https://github.com/vercel/next.js/tree/ca
 
 ## Iniciando
 
-Primeiro, executando o server de desenvolvimento:
+Primeiro, instale as dependencias do projeto.
+
+```bash
+npm install
+# or
+yarn
+# or
+pnpm install
+# or
+bun install
+```
+
+Após isso, executando o server de desenvolvimento:
 
 ```bash
 npm run dev
