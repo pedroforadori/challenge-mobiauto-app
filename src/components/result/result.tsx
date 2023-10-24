@@ -4,14 +4,14 @@ import React, { useContext } from "react";
 import { Container, Price, Obs, Title } from "./styles";
 
 const Result = () => {
-  const { value, model, ageModel } = useContext(PriceContext);
+  const { valueResult, modelResult, ageModelResult } = useContext(PriceContext);
 
   return (
     <Container>
       <Title>
-        Tabela Fipe: Preço {model} {ageModel}
+        Tabela Fipe: Preço {modelResult} {ageModelResult}
       </Title>
-      <Price>{value}</Price>
+      <Price>{valueResult}</Price>
       <Obs>Este é o preço de compra do veículo</Obs>
     </Container>
   );

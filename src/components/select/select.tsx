@@ -1,14 +1,10 @@
 import { SelectInputType } from "@/type/selectType";
 import {
-  Box,
-  Button,
-  CircularProgress,
   FormControl,
   InputLabel,
   LinearProgress,
   MenuItem,
   Select,
-  SelectChangeEvent,
 } from "@mui/material";
 
 const SelectInput = ({ value, text, handleSelect, data, progress } : SelectInputType) => {
@@ -25,6 +21,7 @@ const SelectInput = ({ value, text, handleSelect, data, progress } : SelectInput
         { text }
       </InputLabel>
       <Select
+        data-testid={text}
         labelId="demo-simple-select-helper-label"
         id="demo-simple-select-helper"
         value={value}
