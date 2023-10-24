@@ -4,12 +4,12 @@ import { PriceContext } from "@/context/result";
 import { useContext } from "react";
 
 const Home = () => {
-  const { value } = useContext(PriceContext);
+  const { valueResult } = useContext(PriceContext);
   
   return (
     <>
       <SearchTerm />
-      {value && <Result />}
+      {valueResult && <Result />}
     </>
   );
 };

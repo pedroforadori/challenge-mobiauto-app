@@ -2,7 +2,7 @@ import { Box, SelectChangeEvent } from "@mui/material";
 import { Form, SubTitle, Title } from "./styles";
 import { FormEvent, useContext, useEffect, useState } from "react";
 import SelectInput from "../select/select";
-import { api } from "@/lib";
+import { getBrand, getModel, getAge } from "@/api";
 import { CarType } from "@/type/selectType";
 import { PriceContext } from "@/context/result";
 import ButtonFind from "../button/button";
@@ -22,31 +22,29 @@ export default function SearchTerm() {
 
   useEffect(() => {
     setProgressBrand(true);
-    api.get("/marcas").then((response) => {
-      setBrandData(response.data);
-      setProgressBrand(false);
-    });
+    loadBrand();
   }, []);
+
+  const loadBrand = async () => {
+    setBrandData(await getBrand());
+    setProgressBrand(false);
+  };
 
   const handleSelectBrand = (event: SelectChangeEvent) => {
     setBrand(event.target.value);
     loadModel(+event.target.value);
   };
 
-  const loadModel = (brand: number) => {
+  const loadModel = async (brand: number) => {
     setProgressModel(true);
-    api.get(`/marcas/${brand}/modelos`).then((response) => {
-      setModelData(response.data.modelos);
-      setProgressModel(false);
-    });
+    setModelData(await getModel(brand));
+    setProgressModel(false);
   };
 
-  const loadAge = (model: number) => {
+  const loadAge = async (model: number) => {
     setProgressAge(true);
-    api.get(`/marcas/${brand}/modelos/${model}/anos`).then((response) => {
-      setAgeData(response.data);
-      setProgressAge(false);
-    });
+    setAgeData(await getAge(brand, model));
+    setProgressAge(false);
   };
 
   const handleSelectModel = (event: SelectChangeEvent) => {
@@ -69,7 +67,7 @@ export default function SearchTerm() {
 
   const handlePrice = (event: FormEvent) => {
     event.preventDefault();
-    handleResult(brand, model, age);
+    handleResult(+brand, +model, age);
   };
 
   return (
@@ -115,7 +113,7 @@ export default function SearchTerm() {
             />
           ) : undefined}
 
-          <ButtonFind buttonActive={buttonActive} />
+          <ButtonFind buttonActive={buttonActive} text="Consultar Preço" />
         </Form>
       </Box>
     </>

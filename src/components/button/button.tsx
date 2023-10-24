@@ -3,7 +3,7 @@ import { ButtonType } from "@/type/button";
 import { Button, CircularProgress } from "@mui/material";
 import { useContext } from "react";
 
-const ButtonFind = ({ buttonActive } : ButtonType) => {
+const ButtonSearch = ({ buttonActive, text } : ButtonType) => {
   const { progress } = useContext(PriceContext);
 
   return (
@@ -15,24 +15,27 @@ const ButtonFind = ({ buttonActive } : ButtonType) => {
         minWidth: "40%",
         paddingTop: "8px",
         paddingBottom: "8px",
-        paddingLeft: "6px",
-        paddingRight: "6px",
+        paddingLeft: "20px",
+        paddingRight: "20px",
         margin: "8px",
         backgroundColor: "#5d02bf",
         "&:hover": {
           opacity: "0.7",
           backgroundColor: "#5d02bf",
         },
+        "&:disabled": {
+          backgroundColor: "#e0e0e0"
+        }
       }}
     >
-      Consultar preço
+      {text}
       {progress && (
         <CircularProgress
           size={20}
           sx={{
             color: "#fff",
             width: "5px",
-            marginLeft: "4px",
+            marginLeft: "8px",
           }}
         />
       )}
@@ -40,4 +43,4 @@ const ButtonFind = ({ buttonActive } : ButtonType) => {
   );
 };
 
-export default ButtonFind;
+export default ButtonSearch;
