@@ -14,7 +14,7 @@ pnpm install
 bun install
 ```
 
-Após isso, executando o server de desenvolvimento:
+Após isso, execute o server de desenvolvimento:
 
 ```bash
 npm run dev
