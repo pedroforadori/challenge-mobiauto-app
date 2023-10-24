@@ -1,4 +1,4 @@
-Este é o [Next.js](https://nextjs.org/) projeto criado com [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Projeto criado com [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Iniciando
 
