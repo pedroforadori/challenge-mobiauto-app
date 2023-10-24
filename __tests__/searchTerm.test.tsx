@@ -1,4 +1,3 @@
-import Home from "@/app/page";
 import SearchTerm from "@/components/searchTerm/searchTerm";
 import { render, screen } from "@testing-library/react";
 

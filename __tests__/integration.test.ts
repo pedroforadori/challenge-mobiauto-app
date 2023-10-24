@@ -1,7 +1,7 @@
 // src/api/index.spec.ts
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { CarType } from '@/type/selectType';
-import { getBrand, getModel } from '@/api';
+import { getBrand } from '@/api';
 
 jest.mock('axios');
 
